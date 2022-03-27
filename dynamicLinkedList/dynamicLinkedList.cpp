@@ -4,6 +4,7 @@
 #include<intrin.h>
 #include<list>
 #include<chrono>
+#include<time.h>
 #include<vector>
 
 using namespace std;
@@ -82,21 +83,29 @@ int main() {
 	system_clock::time_point end;
 	nanoseconds nano;
 	
-	start = system_clock::now();		//시간 체크
-	for (int j = 0; j < 100000000; j++) {
-		v.push_back(j);
+	srand(time(NULL));
+
+	FILE* fp1;
+
+	fp1 = fopen("result.txt", "w");
+	for (int j = 0; j < 1000000; j++) {
+		arr.push_back(j);
 	}
+	//시간 체크
+	for (int j = 0; j < 1000000; j++) {
+		start = system_clock::now();
+		arr.at(j);
+		end = system_clock::now();
+		nano = end - start;
+		fprintf_s(fp1, "%d\n", (int)nano.count());
+	}
+	fclose(fp1);
 
-	end = system_clock::now();
-
-	nano = end - start;
-
-	cout << "vector 사용 1억개 데이터 추가 경과시간(나노초 ns) : " << nano.count() << endl;
-	
 	 
-	start = system_clock::now();
+	/*start = system_clock::now();
 	for (int j = 0; j < 100000000; j++) {
-		v.at(j);
+		
+		v.at(rand() % 10000000);
 	}
 	end = system_clock::now();
 	nano = end - start;
@@ -123,5 +132,5 @@ int main() {
 	end = system_clock::now();
 	nano = end - start;
 
-	cout << "리스트 + 배열 1억개 데이터 탐색 경과시간(나노초 ns) : " << nano.count() << endl;
+	cout << "리스트 + 배열 1억개 데이터 탐색 경과시간(나노초 ns) : " << nano.count() << endl;*/
 }
